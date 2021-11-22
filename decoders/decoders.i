@@ -9,6 +9,7 @@
 %include "std_vector.i"
 %include "std_pair.i"
 %include "std_string.i"
+%include "std_map.i"
 %import "decoder_utils.h"
 
 namespace std {
@@ -22,6 +23,7 @@ namespace std {
     %template(PairDoubleStringVector) std::vector<std::pair<double, std::string> >;
     %template(PairDoubleStringVector2) std::vector<std::vector<std::pair<double, std::string> > >;
     %template(DoubleVector3) std::vector<std::vector<std::vector<double> > >;
+    %template(Map) map<string, float>;
 }
 
 %template(IntDoublePairCompSecondRev) pair_comp_second_rev<int, double>;
