@@ -65,8 +65,9 @@ def ctc_beam_search_decoder(probs_seq,
                             beam_size,
                             cutoff_prob=1.0,
                             cutoff_top_n=40,
-                            ext_scoring_func=None,
-                            hot_words=None):
+                            hot_words=None,
+                            ext_scoring_func=None
+                            ):
     """Wrapper for the CTC Beam Search Decoder.
 
     :param probs_seq: 2-D list of probability distributions over each time
@@ -94,7 +95,7 @@ def ctc_beam_search_decoder(probs_seq,
     """
     beam_results = swig_decoders.ctc_beam_search_decoder(
         probs_seq.tolist(), vocabulary, beam_size, cutoff_prob, cutoff_top_n,
-        ext_scoring_func, hot_words.encode())
+        hot_words.encode(), ext_scoring_func)
     beam_results = [(res[0], res[1]) for res in beam_results]
     return beam_results
 
@@ -105,8 +106,8 @@ def ctc_beam_search_decoder_batch(probs_split,
                                   num_processes,
                                   cutoff_prob=1.0,
                                   cutoff_top_n=40,
-                                  ext_scoring_func=None,
-                                  hot_words=None):
+                                  hot_words=None,
+                                  ext_scoring_func=None):
     """Wrapper for the batched CTC beam search decoder.
 
     :param probs_seq: 3-D list with each element as an instance of 2-D list
@@ -139,7 +140,7 @@ def ctc_beam_search_decoder_batch(probs_split,
 
     batch_beam_results = swig_decoders.ctc_beam_search_decoder_batch(
         probs_split, vocabulary, beam_size, num_processes, cutoff_prob,
-        cutoff_top_n, ext_scoring_func, hot_words)
+        cutoff_top_n, hot_words, ext_scoring_func)
     batch_beam_results = [
         [(res[0], res[1]) for res in beam_results]
         for beam_results in batch_beam_results
