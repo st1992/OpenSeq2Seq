@@ -19,9 +19,9 @@ std::vector<std::pair<double, std::string>> ctc_beam_search_decoder(
     const std::vector<std::vector<double>> &probs_seq,
     const std::vector<std::string> &vocabulary,
     size_t beam_size,
+    const char* hot_words,
     double cutoff_prob,
     size_t cutoff_top_n,
-    const char* hot_words,
     Scorer *ext_scorer) {
   // dimension check
   std::vector<std::tuple<std::string, uint32_t, uint32_t>> wordlist;
@@ -466,9 +466,9 @@ ctc_beam_search_decoder_batch(
     const std::vector<std::string> &vocabulary,
     size_t beam_size,
     size_t num_processes,
+    const char* hot_words,
     double cutoff_prob,
     size_t cutoff_top_n,
-    const char* hot_words,
     Scorer *ext_scorer) {
   VALID_CHECK_GT(num_processes, 0, "num_processes must be nonnegative!");
   // thread pool
@@ -483,9 +483,9 @@ ctc_beam_search_decoder_batch(
                                   probs_split[i],
                                   vocabulary,
                                   beam_size,
+                                  hot_words,
                                   cutoff_prob,
                                   cutoff_top_n,
-                                  hot_words,
                                   ext_scorer));
   }
 
