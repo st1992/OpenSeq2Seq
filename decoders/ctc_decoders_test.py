@@ -67,7 +67,8 @@ class CTCCustomDecoderTests(unittest.TestCase):
         vocabulary=self.vocab)
     res = ctc_beam_search_decoder(softmax(self.seq.squeeze()), self.vocab,
                                   beam_size=self.beam_width,
-                                  ext_scoring_func=scorer)
+                                  ext_scoring_func=scorer,
+                                  hot_words="test:1.5")
     res_prob, decoded_text = res[0]
     self.assertTrue( abs(4.0845 + res_prob) < self.tol )
     self.assertTrue( decoded_text == self.label )
@@ -75,4 +76,3 @@ class CTCCustomDecoderTests(unittest.TestCase):
 
 if __name__ == '__main__':
   unittest.main()
-
