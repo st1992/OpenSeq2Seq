@@ -63,9 +63,9 @@ def ctc_greedy_decoder(probs_seq, vocabulary):
 def ctc_beam_search_decoder(probs_seq,
                             vocabulary,
                             beam_size,
+                            hot_words=None,
                             cutoff_prob=1.0,
                             cutoff_top_n=40,
-                            hot_words=None,
                             ext_scoring_func=None
                             ):
     """Wrapper for the CTC Beam Search Decoder.
@@ -94,8 +94,8 @@ def ctc_beam_search_decoder(probs_seq,
     :rtype: list
     """
     beam_results = swig_decoders.ctc_beam_search_decoder(
-        probs_seq.tolist(), vocabulary, beam_size, cutoff_prob, cutoff_top_n,
-        hot_words.encode(), ext_scoring_func)
+        probs_seq.tolist(), vocabulary, beam_size, hot_words.encode(), cutoff_prob, cutoff_top_n,
+        ext_scoring_func)
     beam_results = [(res[0], res[1]) for res in beam_results]
     return beam_results
 
@@ -104,9 +104,9 @@ def ctc_beam_search_decoder_batch(probs_split,
                                   vocabulary,
                                   beam_size,
                                   num_processes,
+                                  hot_words=None,
                                   cutoff_prob=1.0,
                                   cutoff_top_n=40,
-                                  hot_words=None,
                                   ext_scoring_func=None):
     """Wrapper for the batched CTC beam search decoder.
 
@@ -139,8 +139,8 @@ def ctc_beam_search_decoder_batch(probs_split,
     probs_split = [probs_seq.tolist() for probs_seq in probs_split]
 
     batch_beam_results = swig_decoders.ctc_beam_search_decoder_batch(
-        probs_split, vocabulary, beam_size, num_processes, cutoff_prob,
-        cutoff_top_n, hot_words, ext_scoring_func)
+        probs_split, vocabulary, beam_size, num_processes, hot_words, cutoff_prob,
+        cutoff_top_n, ext_scoring_func)
     batch_beam_results = [
         [(res[0], res[1]) for res in beam_results]
         for beam_results in batch_beam_results
