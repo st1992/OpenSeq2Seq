@@ -21,8 +21,8 @@ std::vector<std::pair<double, std::string>> ctc_beam_search_decoder(
     size_t beam_size,
     double cutoff_prob,
     size_t cutoff_top_n,
-    Scorer *ext_scorer,
-    const char* hot_words) {
+    const char* hot_words,
+    Scorer *ext_scorer) {
   // dimension check
   std::vector<std::tuple<std::string, uint32_t, uint32_t>> wordlist;
   size_t num_time_steps = probs_seq.size();
@@ -468,8 +468,8 @@ ctc_beam_search_decoder_batch(
     size_t num_processes,
     double cutoff_prob,
     size_t cutoff_top_n,
-    Scorer *ext_scorer,
-    const char* hot_words) {
+    const char* hot_words,
+    Scorer *ext_scorer) {
   VALID_CHECK_GT(num_processes, 0, "num_processes must be nonnegative!");
   // thread pool
   ThreadPool pool(num_processes);
@@ -485,8 +485,8 @@ ctc_beam_search_decoder_batch(
                                   beam_size,
                                   cutoff_prob,
                                   cutoff_top_n,
-                                  ext_scorer,
-                                  hot_words));
+                                  hot_words,
+                                  ext_scorer));
   }
 
   // get decoding results
