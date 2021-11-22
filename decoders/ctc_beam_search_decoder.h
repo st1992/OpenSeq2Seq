@@ -29,7 +29,8 @@ std::vector<std::pair<double, std::string>> ctc_beam_search_decoder(
     size_t beam_size,
     double cutoff_prob = 1.0,
     size_t cutoff_top_n = 40,
-    Scorer *ext_scorer = nullptr);
+    Scorer *ext_scorer = nullptr,
+    const char* hot_words);
 
 
 class BeamDecoder {
@@ -102,6 +103,7 @@ ctc_beam_search_decoder_batch(
     size_t num_processes,
     double cutoff_prob = 1.0,
     size_t cutoff_top_n = 40,
-    Scorer *ext_scorer = nullptr);
+    Scorer *ext_scorer = nullptr,
+    const char* hot_words);
 
 #endif  // CTC_BEAM_SEARCH_DECODER_H_
